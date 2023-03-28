@@ -9,7 +9,7 @@
   - name: update cache
     apt: name=python3 state=present update_cache=yes cache_valid_time=43200
   - name: install packages
-    apt: name={{item}} state=installed
+    apt: name={{items}} state=installed
     with_items:
       - tree         # Optional
       - python-pip   # Optional
