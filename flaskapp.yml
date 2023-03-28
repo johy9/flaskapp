@@ -6,8 +6,6 @@
   become: yes
   become_method: sudo
   tasks:
-  - name: update cache
-    apt: name=python3 state=present update_cache=yes cache_valid_time=43200
   - name: install virtual environment
     packages:
     apt:   
