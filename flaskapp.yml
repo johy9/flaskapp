@@ -7,7 +7,7 @@
   become_method: sudo
   tasks:
   - name: update cache
-    apt: name=python-software-properties state=present update_cache=yes cache_valid_time=43200
+    apt: name=python3 state=present update_cache=yes cache_valid_time=43200
   - name: disable lighttpd
     systemd: name=lighttpd state=stopped enabled=no  # To avoid conflicts with nginx
   - name: install packages
@@ -28,11 +28,11 @@
       repo: 'https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git'
       dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
       update: yes  # Does a git pull if the repo already exists
-  - name: install modules in a virtualenv
-    pip:
-      requirements: /home/{{ ansible_ssh_user }}/{{ app_name }}/requirements.txt
-      virtualenv: /home/{{ ansible_ssh_user }}/{{ app_name }}/env
-      virtualenv_python: python3.5
+  - name: install flask with pip
+    pip: 
+      name: flask
+      state: present
+#    when: ansible_distribution == "Ubuntu"
 
 # Configure app systemd service and nginx
 - hosts: webservers
@@ -71,10 +71,10 @@
   - name: get url
     get_url:
       url: http://{{host.ini}}
-      dest: /tmp/index.html
-  - name: read html
-    shell: cat /tmp/index.html
-    register: html_contents
-  - name: check for string in html
-    when: html_contents.stdout.find('hello') != -1
+      dest: /tmp/flaskweb.py
+  - name: read py
+    shell: cat /tmp/flaskweb.py
+    register: py_contents
+  - name: check for string in py
+    when: py_contents.stdout.find('name') != -1
     debug: msg="success!"
