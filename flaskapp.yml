@@ -6,13 +6,13 @@
   become_method: sudo
 
   tasks: 
-    - name: install Python3
-      packages:   
-    - python3.8-venv
-    - Python3-pip
-    - python3-dev
-    - nginx
-      state: present
+   - name: install Python3
+     packages:   
+     - python3.8-venv
+     - Python3-pip
+     - python3-dev
+     - nginx
+     state: present
       update_cache: yes
 
 # Install the app, note: don't do these tasks with become sudo
