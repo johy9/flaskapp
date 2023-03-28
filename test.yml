@@ -6,11 +6,11 @@
   become_method: sudo
 
   tasks: 
-  - name: install Python3
-    packages:   
+ - name: install Python3
+   packages:   
      - python3.8-venv
      - Python3-pip
      - python3-dev
      - nginx
-    state: present
-    update_cache: yes
+   state: present
+   update_cache: yes
