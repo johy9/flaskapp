@@ -29,6 +29,6 @@
    - name: Install Git
      yum:
       name: git
-    when: ansible_distribution == "centos"
+     when: ansible_distribution == "centos"
 
 ...
