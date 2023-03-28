@@ -1,16 +1,34 @@
-# Ansible playbook for deploying a Flask app
 ---
-# Install system apt packages
-- hosts: webservers
-  become: yes
-  become_method: sudo
 
-  tasks: 
-  - name: install Python3
-    packages:   
-    - python3.8-venv
-    - Python3-pip
-    - python3-dev
-    - nginx
+- name: Install Python3 virtual environment
+  hosts:  all
+  become: yes
+
+  tasks:
+  - name: Install virtual environment
+    package:
+      name: 
+      - Python3
+      - python3.8-venv
+      - Python3-pip
     state: present
     update_cache: yes
+    #when: ansible_distribution == "Ubuntu"
+
+  - name: install flask with pip
+    pip: 
+      name: flask
+      state: present
+#    when: ansible_distribution == "Ubuntu"
+
+  # ⁃ name: enable flask
+  #   File:
+  #   ⁃ Opt/flask-app
+  # State: present
+  
+  - name: Install Git
+    yum:
+      name: git
+    when: ansible_distribution == "centos"
+
+...
