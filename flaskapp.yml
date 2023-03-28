@@ -1,15 +1,13 @@
 # Ansible playbook for deploying a Flask app
-
 ---
 # Install system apt packages
 - hosts: webservers
   become: yes
   become_method: sudo
 
-  tasks:
+  tasks: 
   - name: install Python3
-    package:
-      name:        
+    packages:   
     - python3.8-venv
     - Python3-pip
     - python3-dev
@@ -18,13 +16,12 @@
     update_cache: yes
 
 # Install the app, note: don't do these tasks with become sudo
-- hosts: webservers
-  tasks:
   - name: clone repo
     git:
       repo: 'https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git'
       dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
       update: yes  # Does a git pull if the repo already exists
+
   - name: install flask with pip
     pip: 
       name: flask
@@ -32,22 +29,22 @@
 #    when: ansible_distribution == "Ubuntu"
 
 # Configure app systemd service and nginx
-- hosts: webservers
-  become: yes
-  become_method: sudo
-  tasks:
   - name: template systemd service config
     copy:
       src: .service
       dest: /etc/systemd/system/{{ app_name }}.service
+
   - name: start systemd app service
     systemd: name={{ app_name }}.service state=restarted enabled=yes
+
   - name: template nginx site config
     template:
       src: .nginx
       dest: /etc/nginx/sites-available/{{ app_name }}
+
   - name: remove default nginx site config
     file: path=/etc/nginx/sites-enabled/default state=absent
+
   # - command: mv /etc/nginx/sites-enabled/default /tmp/nginx.sites-enabled.default
   - name: enable nginx site
     file:
@@ -55,23 +52,29 @@
       dest: /etc/nginx/sites-enabled/default
       state: link
       force: yes
+
   - name: restart nginx
-    systemd: name=nginx state=restarted enabled=yes
+    systemd: 
+      name: nginx 
+      state: restarted 
+      enabled: yes
+
   - name: open firewall for nginx
     ufw:
       rule: allow
       name: Nginx Full
 
 # Run a quick test to verify the site is working
-- hosts: webservers
-  tasks:
   - name: get url
     get_url:
       url: http://{{host.ini}}
       dest: /tmp/flaskweb.py
+
   - name: read py
     shell: cat /tmp/flaskweb.py
     register: py_contents
+
   - name: check for string in py
     when: py_contents.stdout.find('name') != -1
     debug: msg="success!"
+
