@@ -10,8 +10,7 @@
     apt: name=python3 state=present update_cache=yes cache_valid_time=43200
   - name: install virtual environment
     packages:
-    apt: 
-    name:  
+    apt:   
     - Python3
     - python3.8-venv
     - Python3-pip
