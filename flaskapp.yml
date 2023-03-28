@@ -20,7 +20,7 @@
   - name: install flask with pip
     pip:
         name: flask
-      state: present
+        state: present
   - name: template systemd service config
       copy: null
       src: .service
