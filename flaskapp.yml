@@ -43,15 +43,15 @@
      dest: /etc/nginx/sites-available/{{ app_name }}
 
    - name: remove default nginx site config
-    file: path=/etc/nginx/sites-enabled/default state=absent
+     file: path=/etc/nginx/sites-enabled/default state=absent
 
   # - command: mv /etc/nginx/sites-enabled/default /tmp/nginx.sites-enabled.default
-  - name: enable nginx site
-    file:
-    src: /etc/nginx/sites-available/{{ app_name }}
-    dest: /etc/nginx/sites-enabled/default
-    state: link
-    force: yes
+   - name: enable nginx site
+     file:
+     src: /etc/nginx/sites-available/{{ app_name }}
+     dest: /etc/nginx/sites-enabled/default
+     state: link
+     force: yes
 
   - name: restart nginx
     systemd: 
@@ -61,14 +61,14 @@
 
   - name: open firewall for nginx
     ufw:
-     rule: allow
-     name: Nginx Full
+    rule: allow
+    name: Nginx Full
 
 # Run a quick test to verify the site is working
   - name: get url
     get_url:
-      url: http://{{host.ini}}
-      dest: /tmp/flaskweb.py
+    url: http://{{host.ini}}
+    dest: /tmp/flaskweb.py
 
   - name: read py
     shell: cat /tmp/flaskweb.py
