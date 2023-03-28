@@ -15,7 +15,7 @@
   - name: clone repo
     git:
         repo: https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git
-        dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
+        dest: /home/"{{ ansible_ssh_user }}"/"{{ flask }}"
         update: yes
   - name: install flask with pip
     pip:
@@ -24,9 +24,9 @@
   - name: template systemd service config
     copy: null
     src: .service
-    dest: /etc/systemd/system/"{{ app_name }}".service
+    dest: /etc/systemd/system/"{{ flaask }}".service
   - name: start systemd app service
-      systemd: name-"{{ flask }}".service state=restarted enabled=yes
+      systemd: name- "{{ flask }}".service state=restarted enabled=yes
   - name: template nginx site config
       template: null
       src: .nginx
