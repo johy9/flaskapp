@@ -7,10 +7,9 @@
 
   tasks: 
   - name: install Python3
-    packages:   
+    package:   
      - python3.8-venv
      - Python3-pip
-     - python3-dev
      - nginx
     state: present
     update_cache: yes
