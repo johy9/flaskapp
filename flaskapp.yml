@@ -24,18 +24,18 @@
   - name: template systemd service config
     copy: null
     src: .service
-    dest: /etc/systemd/system/{{ app_name }}.service
+    dest: /etc/systemd/system/"{{ app_name }}".service
   - name: start systemd app service
-      systemd: name-"{{ app_name }}".service state=restarted enabled=yes
+      systemd: name-"{{ flask }}".service state=restarted enabled=yes
   - name: template nginx site config
       template: null
       src: .nginx
-      dest: /etc/nginx/sites-available/{{ app_name }}
+      dest: /etc/nginx/sites-available/"{{ flask }}"
   - name: remove default nginx site config
       file: path=/etc/nginx/sites-enabled/default state=absent
   - name: enable nginx site
       file: null
-      src: /etc/nginx/sites-available/{{ app_name }}
+      src: /etc/nginx/sites-available/"{{ flask }}""
       dest: /etc/nginx/sites-enabled/default
       state: link
       force: yes
