@@ -4,7 +4,7 @@
   become_method: sudo
   tasks:
     - name: Upgrade all packages
-     apt: upgrade 
+        apt: upgrade 
     - name: install Python3
       package:
         - python3.8-venv
