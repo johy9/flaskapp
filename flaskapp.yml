@@ -22,7 +22,7 @@
         name: flask
         state: present
   - name: template systemd service config
-      copy: null
+    copy: null
       src: .service
       dest: /etc/systemd/system/{{ app_name }}.service
   - name: start systemd app service
