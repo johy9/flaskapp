@@ -26,7 +26,7 @@
     src: .service
     dest: /etc/systemd/system/"{{ flaask }}".service
   - name: start systemd app service
-      systemd: name- "{{ flask }}".service state=restarted enabled=yes
+      systemd: name - "{{ flask }}".service state=restarted enabled=yes
   - name: template nginx site config
       template: null
       src: .nginx
