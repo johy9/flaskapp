@@ -26,7 +26,7 @@
     src: .service
     dest: /etc/systemd/system/{{ app_name }}.service
   - name: start systemd app service
-      systemd: name={{ app_name }}.service state=restarted enabled=yes
+      systemd: name="{{ app_name }}"".service state=restarted enabled=yes
   - name: template nginx site config
       template: null
       src: .nginx
@@ -40,7 +40,7 @@
       state: link
       force: yes
   - name: restart nginx
-      service:
+      systemd:
         name: nginx
         state: restarted
         enabled: yes
