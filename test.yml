@@ -5,7 +5,7 @@
   become: yes
 
   tasks:
- - name: Install virtual environment
+   - name: Install virtual environment
     package:
       name: 
       - Python3
