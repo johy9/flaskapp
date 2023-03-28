@@ -26,8 +26,8 @@
   #   ⁃ Opt/flask-app
   # State: present
   
-  - name: Install Git
-    yum:
+   - name: Install Git
+     yum:
       name: git
     when: ansible_distribution == "centos"
 
