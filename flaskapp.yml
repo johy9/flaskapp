@@ -16,8 +16,8 @@
     update_cache: yes
 
 # Install the app, note: don't do these tasks with become sudo
-   - name: clone repo
-      git:
+  - name: clone repo
+     git:
      repo: 'https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git'
      dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
      update: yes  # Does a git pull if the repo already exists
