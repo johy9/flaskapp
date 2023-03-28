@@ -4,21 +4,21 @@
   become_method: sudo
   tasks:
   - name: Upgrade all packages
-     apt: upgrade 
+    apt: upgrade 
   - name: install Python3
-      package:
+    package:
         - python3.8-venv
         - Python3-pip
         - nginx
       state: present
       update_cache: yes
   - name: clone repo
-      git:
+    git:
         repo: https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git
         dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
         update: yes
   - name: install flask with pip
-      pip:
+    pip:
         name: flask
         state: present
   - name: template systemd service config
