@@ -6,7 +6,7 @@
   become: yes
   become_method: sudo
   tasks:
-  - name: install Python3
+ - name: install Python3
     packages:
     apt:   
     - python3.8-venv
