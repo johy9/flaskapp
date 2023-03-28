@@ -10,7 +10,7 @@
         - python3.8-venv
         - Python3-pip
         - nginx
-      state: present
+    state: present
       update_cache: yes
   - name: clone repo
     git:
@@ -20,7 +20,7 @@
   - name: install flask with pip
     pip:
         name: flask
-        state: present
+      state: present
   - name: template systemd service config
       copy: null
       src: .service
