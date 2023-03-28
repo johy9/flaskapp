@@ -15,8 +15,8 @@
       update_cache: yes
     #when: ansible_distribution == "Ubuntu"
 
-  - name: install flask with pip
-    pip: 
+   - name: install flask with pip
+     pip: 
       name: flask
       state: present
 #    when: ansible_distribution == "Ubuntu"
