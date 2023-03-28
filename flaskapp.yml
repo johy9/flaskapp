@@ -11,7 +11,7 @@
         - Python3-pip
         - nginx
     state: present
-      update_cache: yes
+    update_cache: yes
   - name: clone repo
     git:
         repo: https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git
