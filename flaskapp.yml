@@ -3,7 +3,7 @@
   become: yes
   become_method: sudo
   tasks:
-    - name: Upgrade all packages
+   - name: Upgrade all packages
       apt: upgrade 
     - name: install Python3
       package:
