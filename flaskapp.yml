@@ -53,8 +53,8 @@
      state: link
      force: yes
 
-  - name: restart nginx
-    systemd: 
+   - name: restart nginx
+     systemd: 
      name: nginx 
      state: restarted 
      enabled: yes
