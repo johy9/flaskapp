@@ -5,57 +5,57 @@
   tasks:
   - name: Upgrade all packages
      apt: upgrade 
-    - name: install Python3
+  - name: install Python3
       package:
         - python3.8-venv
         - Python3-pip
         - nginx
       state: present
       update_cache: yes
-    - name: clone repo
+  - name: clone repo
       git:
         repo: https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git
         dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
         update: yes
-    - name: install flask with pip
+  - name: install flask with pip
       pip:
         name: flask
         state: present
-    - name: template systemd service config
+  - name: template systemd service config
       copy: null
       src: .service
       dest: /etc/systemd/system/{{ app_name }}.service
-    - name: start systemd app service
+  - name: start systemd app service
       systemd: name={{ app_name }}.service state=restarted enabled=yes
-    - name: template nginx site config
+  - name: template nginx site config
       template: null
       src: .nginx
       dest: /etc/nginx/sites-available/{{ app_name }}
-    - name: remove default nginx site config
+  - name: remove default nginx site config
       file: path=/etc/nginx/sites-enabled/default state=absent
-    - name: enable nginx site
+  - name: enable nginx site
       file: null
       src: /etc/nginx/sites-available/{{ app_name }}
       dest: /etc/nginx/sites-enabled/default
       state: link
       force: yes
-    - name: restart nginx
+  - name: restart nginx
       service:
         name: nginx
         state: restarted
         enabled: yes
-    - name: open firewall for nginx
+  - name: open firewall for nginx
       ufw:
         rule: allow
         name: Nginx Full
-    - name: get url
+  - name: get url
       get_url: null
       url: http://{{host.ini}}
       dest: /tmp/flaskweb.py
-    - name: read py
+  - name: read py
       shell: cat /tmp/flaskweb.py
       register: py_contents
-    - name: check for string in py
+  - name: check for string in py
       when: py_contents.stdout.find('name') != -1
       debug: msg="success!"
 ...
