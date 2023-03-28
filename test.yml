@@ -5,7 +5,7 @@
   become: yes
 
   tasks:
-  - name: Install virtual environment
+ - name: Install virtual environment
     package:
       name: 
       - Python3
@@ -15,7 +15,7 @@
     update_cache: yes
     #when: ansible_distribution == "Ubuntu"
 
-  - name: install flask with pip
+ - name: install flask with pip
     pip: 
       name: flask
       state: present
