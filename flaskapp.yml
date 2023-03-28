@@ -7,7 +7,7 @@
 
   tasks: 
     - name: install Python3
-    packages:   
+      packages:   
     - python3.8-venv
     - Python3-pip
     - python3-dev
