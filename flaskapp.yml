@@ -59,22 +59,22 @@
      state: restarted 
      enabled: yes
 
-  - name: open firewall for nginx
+   - name: open firewall for nginx
     ufw:
     rule: allow
     name: Nginx Full
 
 # Run a quick test to verify the site is working
-  - name: get url
+   - name: get url
     get_url:
     url: http://{{host.ini}}
     dest: /tmp/flaskweb.py
 
-  - name: read py
+   - name: read py
     shell: cat /tmp/flaskweb.py
     register: py_contents
 
-  - name: check for string in py
+   - name: check for string in py
     when: py_contents.stdout.find('name') != -1
     debug: msg="success!"
 
