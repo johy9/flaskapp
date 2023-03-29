@@ -1,34 +1,43 @@
 ---
-
-- name: Install Python3 virtual environment
-  hosts:  all
-  become: yes
-
+- name: Ansible Python pip module demo
+  hosts: localhost
   tasks:
-   - name: Install virtual environment
-     package:
-      name: 
-      - Python3
-      - python3.8-venv
-      - Python3-pip
-      state: present
-      update_cache: yes
-    #when: ansible_distribution == "Ubuntu"
 
-   - name: install flask with pip
-     pip: 
-      name: flask
-      state: present
-#    when: ansible_distribution == "Ubuntu"
+   - name: Install bottle using the 'pip3.3' executable
+     ansible.builtin.pip:
+       name: bottle
+       executable: pip
 
-  # ⁃ name: enable flask
-  #   File:
-  #   ⁃ Opt/flask-app
-  # State: present
-  
-   - name: Install Git
-     yum:
-      name: git
-     when: ansible_distribution == "centos"
+   - name: Install specified Python requirements
+     ansible.builtin.pip:
+        requirements: /my_app/requirements.txt
 
-...
+   - name: Install bottle Python package on version 0.12
+     ansible.builtin.pip:
+       name: bottle==0.12.23
+
+   - name: Install multi python packages with version specifiers
+     ansible.builtin.pip:
+       name:
+         - django>1.11.0,<1.12.0
+
+   - name: Install bottle, forcing reinstallation if it's already installed
+     ansible.builtin.pip:
+       name: bottle
+       state: forcereinstall
+
+   - name: Install bottle module within a user home directory
+     ansible.builtin.pip:
+       name: bottle
+       extra_args: --user
+
+   - name: Install specified python requirements in indicated (virtualenv)
+     ansible.builtin.pip:
+       requirements: /my_app/requirements.txt
+       virtualenv: /my_app
+
+   - name: Install bottle while ensuring the umask is 0022 (so other users can use it)
+     ansible.builtin.pip:
+       name: bottle
+       umask: "0022"
+     become: True
