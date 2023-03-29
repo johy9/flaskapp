@@ -1,61 +1,87 @@
 ---
-- hosts: webservers
-  become: yes
-  become_method: sudo
+---
+- name: Provision and configure EC2 instance for Flask web app
+  hosts: webserver
+  become: true
+
+  vars:
+    flask_app_name: flask-app
+    flask_app_port: 5000
+    flask_app_secret_key: super-secret-key
+
   tasks:
-  - name: Upgrade all packages
-    apt: upgrade 
-  - name: install Python3
-    package:
-        - python3.8-venv
-        - Python3-pip
-        - nginx
-    state: present
-    update_cache: yes
-  - name: clone repo
-    git:
-        repo: https://github.com/johy9/flaskweb.git/{{ github_user }}/{{ app_name }}.git
-        dest: /home/"{{ ansible_ssh_user }}"/"{{ flask }}"
-        update: yes
-  - name: install flask with pip
-    pip:
-        name: flask
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - nginx
+          - gunicorn3
         state: present
-  - name: template systemd service config
-    copy: null
-    src: .service
-    dest: /etc/systemd/system/"{{ flaask }}".service
-  - name: start systemd app service
-      systemd: name - "{{ flask }}".service state=restarted enabled=yes
-  - name: template nginx site config
-      template: null
-      src: .nginx
-      dest: /etc/nginx/sites-available/"{{ flask }}"
-  - name: remove default nginx site config
-      file: path=/etc/nginx/sites-enabled/default state=absent
-  - name: enable nginx site
-      file: null
-      src: /etc/nginx/sites-available/"{{ flask }}""
-      dest: /etc/nginx/sites-enabled/default
-      state: link
-      force: yes
-  - name: restart nginx
+
+    - name: Configure firewall
+      ufw:
+        rule: allow
+        port: "{{ flask_app_port }}"
+
+    - name: Clone Flask app from Git
+      git:
+        repo: https://github.com/myusername/my-flask-app.git
+        dest: /home/ubuntu/{{ flask_app_name }}
+        version: master
+
+    - name: Install Flask app requirements
+      pip:
+        requirements: /home/ubuntu/{{ flask_app_name }}/requirements.txt
+
+    - name: Configure Flask app
+      copy:
+        src: /home/ubuntu/{{ flask_app_name }}/config.py.example
+        dest: /home/ubuntu/{{ flask_app_name }}/config.py
+      vars:
+        flask_app_secret_key: "{{ flask_app_secret_key }}"
+      notify:
+        - restart gunicorn3
+
+    - name: Configure Gunicorn3
+      copy:
+        src: /etc/systemd/system/gunicorn3.service
+        dest: /etc/systemd/system/gunicorn3.service
+      notify:
+        - restart gunicorn3
+
+    - name: Enable and start Gunicorn3 service
+      systemd:
+        name: gunicorn3
+        enabled: yes
+        state: started
+
+    - name: Configure Nginx
+      copy:
+        src: /etc/nginx/sites-available/{{ flask_app_name }}
+        dest: /etc/nginx/sites-available/{{ flask_app_name }}
+      notify:
+        - restart nginx
+
+    - name: Enable Flask app in Nginx
+      file:
+        src: /etc/nginx/sites-available/{{ flask_app_name }}
+        dest: /etc/nginx/sites-enabled/{{ flask_app_name }}
+        state: link
+      notify:
+        - restart nginx
+
+  handlers:
+    - name: restart gunicorn3
+      systemd:
+        name: gunicorn3
+        state: restarted
+
+    - name: restart nginx
       systemd:
         name: nginx
         state: restarted
-        enabled: yes
-  - name: open firewall for nginx
-      ufw:
-        rule: allow
-        name: Nginx Full
-  - name: get url
-      get_url: null
-      url: http://{{host.ini}}
-      dest: /tmp/flaskweb.py
-  - name: read py
-      shell: cat /tmp/flaskweb.py
-      register: py_contents
-  - name: check for string in py
-      when: py_contents.stdout.find('name') != -1
-      debug: msg="success!"
-...
