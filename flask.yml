@@ -34,8 +34,8 @@
         name: flask
         chdir: /opt/flask-app
 
-    - name: Start the Flask App
-      command: python3 /opt/flask-app/app.py
+    - name: Start the Flask App with Gunicorn
+      command: gunicorn3 --bind 127.0.0.1:5000 app:app
       async: 1
       poll: 0
       register: flask_app_start_result
@@ -44,11 +44,6 @@
       debug:
         var: flask_app_start_result
 
-
-    # - name: Start the Flask App
-    #   command: python3 /opt/flask-app/app.py  
-    #   args:
-    #     creates: /var/run/flask-app.pid
 
     - name: Configure nginx
       template:
@@ -62,4 +57,4 @@
       service:
         name: nginx
         state: restarted
-...        
+...
