@@ -1,5 +1,4 @@
 ---
----
 - name: Provision and configure EC2 instance for Flask web app
   hosts: webserver
   become: true
