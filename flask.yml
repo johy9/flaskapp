@@ -45,7 +45,7 @@
 
 
     - name: Start application
-      command: python3 /opt/flask-app/app.py  --port 8080
+      command: python3 /opt/flask-app/app.py  
       args:
         creates: /var/run/flask-app.pid
 
