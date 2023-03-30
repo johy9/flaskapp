@@ -40,6 +40,11 @@
       ufw:
         rule: allow
         port: 5000 
+    - name: Restart UFW
+      systemd:
+        name: ufw
+        state: restarted
+      become: yes   
     - name: Start the Flask App with Gunicorn
       command: /bin/bash -c "source /opt/flaskapp/env/bin/activate && export FLASK_APP=/opt/flaskapp/app.py && /opt/flaskapp/env/bin/flask run --host=0.0.0.0 &"
       async: 0
