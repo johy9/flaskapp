@@ -16,6 +16,7 @@
           - python3-pip
           - git
           - nginx
+          - gunicorn3
 
     - name: Create the destination folder
       file:
