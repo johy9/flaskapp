@@ -1,7 +1,7 @@
 - name: Generate Flask app configuration file
   template:
     src: flask.conf.j2
-    dest: /etc/systemd/system/{{ flask_app_name }}.service
+    dest: /etc/systemd/system/{{ flask_app_name }}.service  
   notify:
     - Restart Flask app
 
@@ -11,7 +11,14 @@
     dest: /home/ubuntu/{{ flask_app_name }}/app.py
   notify:
     - Restart Flask app
-  
+
+handlers:
+  - name: Restart Flask app
+    systemd:
+      name: "{{ flask_app_name }}"
+      state: restarted
+
+
 - name: Define Flask app routes
   block:
     - name: Define home page route
@@ -19,11 +26,9 @@
         path: /home/ubuntu/{{ flask_app_name }}/app.py
         line: '    @app.route("/")\n    def hello():\n        return "{{ flask_app_message }}"'
   become: yes
-  notify:
-    - Restart Flask app
 
-handlers:
-  - name: Restart Flask app
-    systemd:
-      name: "{{ flask_app_name }}"
-      state: restarted
+- name: Restart Flask app
+  systemd:
+    name: "{{ flask_app_name }}"
+    state: restarted
+  notify: Restart Flask app
