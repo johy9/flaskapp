@@ -1,5 +1,4 @@
 ---
----
 - name: Deploy Flask App
   hosts: webservers
   become: yes
@@ -33,7 +32,7 @@
       become: true
       ufw:
         rule: allow
-        port: "{{ http_port }}"
+        port: 5000 
     - name: Start the Flask App with Gunicorn
       command: gunicorn3 --bind 127.0.0.1:5000 app:app
       async: 1
