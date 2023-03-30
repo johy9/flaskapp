@@ -48,7 +48,7 @@
     - name: Configure nginx
       template:
         src: nginx.conf.j2
-        dest: /etc/nginx/sites-available/flask_app
+        dest: /etc/nginx/sites-available/flask-app
       notify:
         - restart nginx
 
