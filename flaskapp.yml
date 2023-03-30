@@ -33,7 +33,7 @@
 
     - name: Clone Flask app from Git
       git:
-        repo: https://github.com/myusername/my-flask-app.git
+        repo: https://github.com/johy9/flaskapp.git
         dest: /home/ubuntu/{{ flask_app_name }}
         version: master
 
