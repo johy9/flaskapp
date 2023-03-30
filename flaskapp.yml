@@ -23,8 +23,31 @@
           - nginx
           - gunicorn3
         state: present
-    # Include task to generate config file
-    - include_tasks: generate_config.yml
+
+    - name: Generate Flask app configuration file
+      template:
+        src: flask.conf.j2
+        dest: /etc/systemd/system/{{ flask_app_name }}.service
+      notify:
+        - restart gunicorn3
+
+    - name: Generate Flask app
+      template:
+        src: app.py.j2
+        dest: /home/ubuntu/{{ flask_app_name }}/app.py
+      notify:
+        - restart gunicorn3
+
+    - name: Define Flask app routes
+      block:
+        - name: Define home page route
+          lineinfile:
+            path: /home/ubuntu/{{ flask_app_name }}/app.py
+            line: '    @app.route("/")\n    def hello():\n        return "{{
+              flask_app_message }}"'
+      become: yes
+      notify:
+        - restart gunicorn3
 
     - name: Configure firewall
       ufw:
@@ -78,13 +101,10 @@
       notify:
         - restart nginx
 
-  handlers:
-    - name: restart gunicorn3
+    - name: Restart Flask app
       systemd:
-        name: gunicorn3
+        name:
+          - nginx
+          - gunicorn3
         state: restarted
-
-    - name: restart nginx
-      systemd:
-        name: nginx
-        state: restarted
+...
