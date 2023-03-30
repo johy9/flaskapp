@@ -35,7 +35,7 @@
       git:
         repo: https://github.com/johy9/flaskapp.git
         dest: /home/ubuntu/{{ flask_app_name }}
-        version: master
+        version: main
 
     - name: Install Flask app requirements
       pip:
