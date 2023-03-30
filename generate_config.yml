@@ -13,10 +13,12 @@
     - Restart Flask app
 
   
-- name: Restart Flask app
-  systemd:
-    name: "{{ flask_app_name }}"
-    state: restarted
+handlers:
+  - name: Restart Flask app
+    systemd:
+      name: "{{ flask_app_name }}"
+      state: restarted
+
 
 - name: Define Flask app routes
   block:
