@@ -1,0 +1,4 @@
+---
+vars:
+  flask_app_secret_key: "{{ lookup('pipe', 'python -c \"import secrets; print(secrets.token_hex(16))\"') }}"
+...
