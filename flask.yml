@@ -12,6 +12,7 @@
         name:
           - python3
           - python3-pip
+          - python3-venv
           - git
           - nginx
           - gunicorn3
@@ -28,6 +29,12 @@
       pip:
         name: flask
         chdir: /opt/flask-app
+    - name: Create virtual environment
+      command: python3 -m venv /opt/flask-app/env
+      become: yes
+    - name: Activate virtual environment
+      command: /bin/bash -c "source /opt/flask-app/env/bin/activate"
+      become: yes 
     - name: Configure firewall
       become: true
       ufw:
