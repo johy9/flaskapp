@@ -19,7 +19,7 @@
         line: '    @app.route("/")\n    def hello():\n        return "{{
           flask_app_message }}"'
   become: yes
-    notify:
+  notify:
     - Restart Flask app
   handlers:
     - name: Restart Flask app
