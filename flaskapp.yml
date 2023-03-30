@@ -5,6 +5,7 @@
   vars_files:
     - vars.yml
   vars:
+    # Set Flask app variables  
     flask_app_name: flask-app
     flask_app_port: 5000
     flask_app_secret_key: super-secret-key
@@ -22,6 +23,8 @@
           - nginx
           - gunicorn3
         state: present
+    # Include task to generate config file
+    - include_tasks: generate_config.yml
 
     - name: Configure firewall
       ufw:
