@@ -16,7 +16,7 @@
           - python3-pip
           - git
           - nginx
-          
+
     - name: Create the destination folder
       file:
         path: /opt/flask-app
@@ -33,21 +33,21 @@
         name: flask
         chdir: /opt/flask-app
 
-    - name: Start the Flask App
-      command: python3 /opt/flask-app/app.py
-      async: 1
-      poll: 0
-      register: flask_app_start_result
+    # - name: Start the Flask App
+    #   command: python3 /opt/flask-app/app.py
+    #   async: 1
+    #   poll: 0
+    #   register: flask_app_start_result
 
-    - name: Debug the output
-      debug:
-        var: flask_app_start_result
+    # - name: Debug the output
+    #   debug:
+    #     var: flask_app_start_result
 
 
-    # - name: Start application
-    #   command: python3 /opt/flask-app/app.py  --port 8080
-    #   args:
-    #     creates: /var/run/flask-app.pid
+    - name: Start application
+      command: python3 /opt/flask-app/app.py  --port 8080
+      args:
+        creates: /var/run/flask-app.pid
 
     - name: Configure nginx
       template:
