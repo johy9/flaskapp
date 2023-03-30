@@ -3,7 +3,8 @@
 - name: Provision and configure EC2 instance for Flask web app
   hosts: webserver
   become: true
-
+  vars_files:
+    - vars.yml
   vars:
     flask_app_name: flask-app
     flask_app_port: 5000
