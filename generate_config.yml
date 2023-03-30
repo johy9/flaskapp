@@ -21,8 +21,8 @@
   become: yes
   notify:
     - Restart Flask app
-  - name:
-    handlers:
+  
+  handlers:
     - name: Restart Flask app
       systemd:
         name: "{{ flask_app_name }}"
