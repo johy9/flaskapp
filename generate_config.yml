@@ -27,5 +27,4 @@
       systemd:
         name: "{{ flask_app_name }}"
         state: restarted
-
 ...
