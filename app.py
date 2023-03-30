@@ -8,7 +8,4 @@ def index():
     return "I am almost a Devops Engineer!"
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
-    logging.info('Starting Flask app...')
-    app.run(debug= True')
-    logging.info('Flask app has been started')
+ app.run(host='0.0.0.0')
