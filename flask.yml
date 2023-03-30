@@ -36,11 +36,11 @@
       command: python3 /opt/flask-app/app.py
       async: 1
       poll: 0
-      register: flask-app_start_result
+      register: flask_app_start_result
 
-    # - name: Debug the output
-    #   debug:
-    #     var: flask-app_start_result
+    - name: Debug the output
+      debug:
+        var: flask_app_start_result
 
 
     - name: Start application
