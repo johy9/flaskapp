@@ -40,3 +40,23 @@
     - name: Debug the output
       debug:
         var: flask_app_start_result
+
+
+  #       - name: Start application
+  #     command: python3 /opt/flask_app/app.py &
+  #     args:
+  #       creates: /var/run/flask_app.pid
+
+  #   - name: Configure nginx
+  #     template:
+  #       src: nginx.conf.j2
+  #       dest: /etc/nginx/sites-available/flask_app
+  #     notify:
+  #       - restart nginx
+
+  # handlers:
+  #   - name: restart nginx
+  #     service:
+  #       name: nginx
+  #       state: restarted
+  ...
