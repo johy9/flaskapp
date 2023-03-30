@@ -5,12 +5,14 @@
     dest: /etc/systemd/system/{{ flask_app_name }}.service
   notify:
     - Restart Flask app
+
 - name: Generate Flask app
   template:
     src: app.py.j2
     dest: /home/ubuntu/{{ flask_app_name }}/app.py
   notify:
     - Restart Flask app
+
 - name: Define Flask app routes
   block:
     - name: Define home page route
@@ -19,8 +21,9 @@
         line: '    @app.route("/")\n    def hello():\n        return "{{
           flask_app_message }}"'
   become: yes
-  notify:
+   notify:
     - Restart Flask app
+  
   handlers:
     - name: Restart Flask app
       systemd:
