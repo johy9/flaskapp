@@ -1,16 +1,14 @@
-[Unit]
-Description={{ flask_app_name }} Flask application
+server {
+    listen 80;
+    server_name {{ ansible_hostname }};
+    
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
 
-[Service]
-User=ubuntu
-WorkingDirectory=/home/ubuntu/{{ flask_app_name }}
-ExecStart=/usr/bin/env python3 app.py
-Restart=always
-RestartSec=10
-Environment=FLASK_ENV=production
-Environment=FLASK_APP=app.py
-Environment=FLASK_RUN_PORT={{ flask_app_port }}
-Environment=FLASK_SECRET_KEY={{ flask_app_secret_key }}
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+}
 
-[Install]
-WantedBy=multi-user.target
