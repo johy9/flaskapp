@@ -22,7 +22,7 @@
   notify:
     - Restart Flask app
   
-  handlers:
+handlers:
     - name: Restart Flask app
       systemd:
         name: "{{ flask_app_name }}"
