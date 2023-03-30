@@ -1,0 +1,16 @@
+[Unit]
+Description={{ flask_app_name }} Flask application
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/{{ flask_app_name }}
+ExecStart=/usr/bin/env python3 app.py
+Restart=always
+RestartSec=10
+Environment=FLASK_ENV=production
+Environment=FLASK_APP=app.py
+Environment=FLASK_RUN_PORT={{ flask_app_port }}
+Environment=FLASK_SECRET_KEY={{ flask_app_secret_key }}
+
+[Install]
+WantedBy=multi-user.target
