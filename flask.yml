@@ -20,6 +20,7 @@
       file:
         path: /opt/flask-app
         state: directory
+        mode: 0755
 
     - name: Clone the repository
       git:
