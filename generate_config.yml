@@ -1,0 +1,5 @@
+- name: Generate Flask app configuration file
+  template:
+    src: flask.conf.j2
+    dest: /etc/systemd/system/{{ flask_app_name }}.service
+  notify: Restart Flask app
