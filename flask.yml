@@ -43,7 +43,7 @@
 
 
     - name: Start application
-      command: python3 /opt/flask_app/app.py &
+      command: python3 /opt/flask_app/app.py 
       args:
         creates: /var/run/flask_app.pid
 
