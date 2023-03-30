@@ -41,22 +41,22 @@
         rule: allow
         port: 5000 
     - name: Start the Flask App with Gunicorn
-      command: gunicorn3 --bind 127.0.0.1:5000 app:app
-      async: 1
+      command: /bin/bash -c "source /opt/flaskapp/env/bin/activate && export FLASK_APP=/opt/flaskapp/app.py && /opt/flaskapp/env/bin/flask run --host=0.0.0.0 &"
+      async: 0
       poll: 0
-      register: flask_app_start_result
-    - name: Debug the output
-      debug:
-        var: flask_app_start_result
-    - name: Configure nginx
-      template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/sites-available/flask-app
-      notify:
-        - restart nginx
-  handlers:
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
+    
+  #   - name: Debug the output
+  #     debug:
+  #       var: flask_app_start_result
+  #   - name: Configure nginx
+  #     template:
+  #       src: nginx.conf.j2
+  #       dest: /etc/nginx/sites-available/flask-app
+  #     notify:
+  #       - restart nginx
+  # handlers:
+  #   - name: restart nginx
+  #     service:
+  #       name: nginx
+  #       state: restarted
 ...
