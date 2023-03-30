@@ -38,9 +38,9 @@
       poll: 0
       register: flask-app_start_result
 
-    - name: Debug the output
-      debug:
-        var: flask_app_start_result
+    # - name: Debug the output
+    #   debug:
+    #     var: flask-app_start_result
 
 
     - name: Start application
