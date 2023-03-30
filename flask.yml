@@ -44,7 +44,7 @@
     #     var: flask_app_start_result
 
 
-    - name: Start application
+    - name: Start the Flask App
       command: python3 /opt/flask-app/app.py  
       args:
         creates: /var/run/flask-app.pid
