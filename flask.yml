@@ -33,6 +33,11 @@
       pip:
         name: flask
         chdir: /opt/flask-app
+    - name: Configure firewall
+        become: true
+        ufw:
+        rule: allow
+        port: "{{ http_port }}" 
 
     - name: Start the Flask App with Gunicorn
       command: gunicorn3 --bind 127.0.0.1:5000 app:app
