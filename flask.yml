@@ -15,7 +15,8 @@
           - python3
           - python3-pip
           - git
-
+          - nginx
+          
     - name: Create the destination folder
       file:
         path: /opt/flask-app
