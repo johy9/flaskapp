@@ -10,5 +10,5 @@ def index():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     logging.info('Starting Flask app...')
-    app.run(host='0.0.0.0')
+    app.run(debug= True')
     logging.info('Flask app has been started')
