@@ -21,39 +21,39 @@
       become: yes
   
     - name: Create virtual environment
-      command: python3 -m venv /opt/myappp/env
+      command: python3 -m venv /opt/project/env
       become: yes
   
     - name: Activate virtual environment
-      command: /bin/bash -c "source /opt/myappp/env/bin/activate"
+      command: /bin/bash -c "source /opt/project/env/bin/activate"
       become: yes
       
     - name: Delete existing app directory
       file:
-        path: /opt/myappp
+        path: /opt/project
         state: absent
       ignore_errors: true
     - name: Clone repository
       git:
         repo: https://github.com/johy9/flaskapp.git
-        dest: /opt/myappp
+        dest: /opt/project
 
     - name: Clone Git repository
       git:
         repo: https://github.com/johy9/flaskapp.git
-        dest: /opt/myappp
+        dest: /opt/project
       become: yes
       
     - name: Install dependencies using requirements.txt
       pip:
-        requirements: /opt/myappp/requirements.txt
-        executable: /opt/myappp/env/bin/pip
+        requirements: /opt/project/requirements.txt
+        executable: /opt/project/env/bin/pip
   
     - name: Install flask using pip
       #var: ansible_command
       pip:
         name: flask
-        executable: /opt/myappp/env/bin/pip
+        executable: /opt/project/env/bin/pip
           #state: present
       become: yes
 
@@ -74,6 +74,6 @@
 
     - name: Start Flask app
       become: true
-      command: /bin/bash -c "source /opt/myappp/env/bin/activate && export FLASK_APP=/opt/myappp/app.py && /opt/myappp/env/bin/flask run --host=0.0.0.0 &"
+      command: /bin/bash -c "source /opt/project/env/bin/activate && export FLASK_APP=/opt/project/app.py && /opt/project/env/bin/flask run --host=0.0.0.0 &"
       async: 0
       poll: 0
