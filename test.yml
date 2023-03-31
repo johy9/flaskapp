@@ -2,6 +2,7 @@
 - name: Deploy Flask app
   hosts: webservers
   become: true
+  remote_user: root
   
   tasks:
     - name: Update apt cache
