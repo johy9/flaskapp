@@ -33,11 +33,7 @@
 #         path: /opt/project
 #         state: absent
 #       ignore_errors: true
-    - name: Clone repository
-      git:
-        repo: https://github.com/johy9/flaskapp.git
-        dest: /opt/project
-
+    
     - name: Clone Git repository
       git:
         repo: https://github.com/johy9/flaskapp.git
