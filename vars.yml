@@ -1,7 +1,0 @@
----
-vars:
-  flask_app_name: flaskapp
-  flask_app_secret_key: "{{ lookup('pipe', 'python -c \"import secrets; print(secrets.token_hex(16))\"') }}"
-  flask_app_port: 5000
-  flask_app_message: "I am almost a DevOps Engineer!"
-...
