@@ -50,5 +50,5 @@
     - name: Start Flask app
       command: /bin/bash -c "source /opt/project2/env/bin/activate && export FLASK_APP=/opt/project2/app.py && /opt/project2/env/bin/flask run --host=0.0.0.0 &"
       async: 0
-      poll: 0
-  ...
+      poll: 0 
+...
