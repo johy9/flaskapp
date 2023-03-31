@@ -51,25 +51,4 @@
       command: /bin/bash -c "source /opt/project2/env/bin/activate && export FLASK_APP=/opt/project2/app.py && /opt/project2/env/bin/flask run --host=0.0.0.0 &"
       async: 0
       poll: 0
-
-# - name: Deploy Flask app
-#   hosts: webservers
-#   remote_user: root
-  
-# #   tasks:
-# #     - name: Update apt cache
-# #       apt:
-# #         update_cache: yes
-# #       become: yes
-  
-# #     - name: Install necessary packages
-# #       apt:
-# #         name:
-# #           - python3-pip
-# #           - python3-dev
-# #           - build-essential
-# #           - python3-venv
-# #           - git
-# #         state: present
-# #       become: yes
   ...
