@@ -34,11 +34,11 @@
 #         state: absent
 #       ignore_errors: true
     
-    - name: Clone Git repository
-      git:
-        repo: https://github.com/johy9/flaskapp.git
-        dest: /opt/project
-      become: yes
+#     - name: Clone Git repository
+#       git:
+#         repo: https://github.com/johy9/flaskapp.git
+#         dest: /opt/project
+#       become: yes
       
     - name: Install dependencies using requirements.txt
       pip:
