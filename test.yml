@@ -30,7 +30,7 @@
 
     - name: Clone Git repository
       git:
-        repo: https://github.com/Opas95/Flask-web-App.git
+        repo: https://github.com/johy9/flaskapp.git
         dest: /opt/myapp
       become: yes
       
