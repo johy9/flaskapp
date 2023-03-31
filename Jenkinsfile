@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('Checkout SCM') {
       steps {
-        git 'https://github.com/johy9/flaskapp.git' 
+        git branch: 'main', url: 'https://github.com/johy9/flaskapp.git' 
       }
     }
 
     stage('Checkout Ansible playbook') {
       steps {
-        git 'https://github.com/myusername/myansibleplaybook.git'
+        git branch: 'main', url: 'https://github.com/myusername/myansibleplaybook.git'
       }
     }
 
