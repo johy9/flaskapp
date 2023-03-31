@@ -28,11 +28,11 @@
       command: /bin/bash -c "source /opt/project/env/bin/activate"
       become: yes
       
-    - name: Delete existing app directory
-      file:
-        path: /opt/project
-        state: absent
-      ignore_errors: true
+#     - name: Delete existing app directory
+#       file:
+#         path: /opt/project
+#         state: absent
+#       ignore_errors: true
     - name: Clone repository
       git:
         repo: https://github.com/johy9/flaskapp.git
