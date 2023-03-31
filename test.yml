@@ -73,7 +73,7 @@
         state: present
       become: yes
   
-    - name: Create virtual environment
+#     - name: Create virtual environment
 #       command: python3 -m venv /opt/project/env
 #       become: yes
   
