@@ -27,6 +27,16 @@
     - name: Activate virtual environment
       command: /bin/bash -c "source /opt/myappp/env/bin/activate"
       become: yes
+      
+    - name: Delete existing app directory
+      file:
+        path: /opt/myappp
+        state: absent
+      ignore_errors: true
+    - name: Clone repository
+      git:
+        repo: https://github.com/johy9/flaskapp.git
+        dest: /opt/myappp
 
     - name: Clone Git repository
       git:
