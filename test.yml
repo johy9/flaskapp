@@ -56,20 +56,20 @@
   hosts: webservers
   remote_user: root
   
-  tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-      become: yes
+#   tasks:
+#     - name: Update apt cache
+#       apt:
+#         update_cache: yes
+#       become: yes
   
-    - name: Install necessary packages
-      apt:
-        name:
-          - python3-pip
-          - python3-dev
-          - build-essential
-          - python3-venv
-          - git
-        state: present
-      become: yes
+#     - name: Install necessary packages
+#       apt:
+#         name:
+#           - python3-pip
+#           - python3-dev
+#           - build-essential
+#           - python3-venv
+#           - git
+#         state: present
+#       become: yes
   ...
