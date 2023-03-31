@@ -40,10 +40,10 @@
 #         dest: /opt/project
 #       become: yes
       
-    - name: Install dependencies using requirements.txt
-      pip:
-        requirements: /opt/project/requirements.txt
-        executable: /opt/project/env/bin/pip
+#     - name: Install dependencies using requirements.txt
+#       pip:
+#         requirements: /opt/project/requirements.txt
+#         executable: /opt/project/env/bin/pip
   
     - name: Install flask using pip
       #var: ansible_command
