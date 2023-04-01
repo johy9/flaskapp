@@ -29,7 +29,7 @@ pipeline {
         sh 'echo "Building application..."'
       }
     }
-    stage('Deploy') {
+    stage('Post build') {
       steps {
         ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible-project', inventory: 'host.ini', playbook: 'deploy.yml'
       }
