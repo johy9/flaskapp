@@ -1,7 +1,9 @@
 import unittest
 import sys
+
 sys.path.insert(0, '/usr/bin/python3.6/site-packages')
 from app import app
+
 
 class TestApp(unittest.TestCase):
     
@@ -12,5 +14,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(status_code, 200)
         self.assertIn(b'"Hello there! I'm a DevOps Engineer in the making, and I'm excited to use Flask to build some awesome web applications. Stay tuned for some amazing projects coming soon! :)", response.data)
 
+
 if __name__ == '__main__':
     unittest.main()
+
