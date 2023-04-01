@@ -1,7 +1,8 @@
-#import unittest
+import unittest
 import sys
 sys.path.insert(0, '/usr/bin/python3.6/site-packages')
 from app import app
+
 class TestApp(unittest.TestCase):
     
     def test_index(self):
