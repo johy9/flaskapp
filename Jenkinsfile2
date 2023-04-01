@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   tools {
-    git 'Git'
+    git 'default'
   }
 
   stages {
@@ -11,7 +11,7 @@ pipeline {
         git branch: 'main', credentialsId: 'git2', url: 'https://github.com/johy9/flaskapp.git'
       }
     }
-    
+
     stage('Test') {
       steps {
         sh 'python tests.py'
