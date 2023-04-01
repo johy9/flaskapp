@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  environment {
+  environment {.
     FLASK_APP = 'app.py'
   }
   tools {
