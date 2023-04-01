@@ -42,7 +42,7 @@ pipeline {
         
         stage ('post build') {
             steps {
-               ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible-project', inventory: 'host.ini', playbook: 'deploy.yml'-
+               ansiblePlaybook credentialsId: 'git', installation: 'ansible-project', inventory: 'host.ini', playbook: 'deploy.yml'
             }
         }
     }
