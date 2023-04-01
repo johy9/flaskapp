@@ -7,7 +7,15 @@ pipeline {
         git branch: 'main', url: 'https://github.com/johy9/flaskapp.git' 
       }
     }
-
+    
+    stage('Install Dependencies') {
+      steps {
+        sh 'sudo yum update'
+        sh 'sudo yum install -y python3-pip'
+        sh 'pip3 install -r requirements.txt'
+      }
+    }
+    
     stage('Test') {
       steps {
         sh 'pip install pytest'
