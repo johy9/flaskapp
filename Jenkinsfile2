@@ -8,14 +8,6 @@ pipeline {
       }
     }
     
-    stage('Install Dependencies') {
-      steps {
-        sh ' virtualenv joy'
-        sh '. /var/lib/jenkins/workspace/Ansible-Project/joy/bin/activate && install python3-pip'
-        sh '. /var/lib/jenkins/workspace/Ansible-Project/joy/bin/activate && pip3 install'
-      }
-    }
-    
     stage('Test') {
       steps {
         sh 'pip install pytest'
