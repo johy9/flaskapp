@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout SCM') {
       steps {
-        git branch: 'main', credentialsId: 'a7dd8995-52e9-4679-b9d1-ea87bb7357a9', url: 'https://github.com/johy9/flaskapp.git'
+        git branch: git branch: 'main', credentialsId: 'git2', url: 'https://github.com/johy9/flaskapp.git'
       }
     }
     
