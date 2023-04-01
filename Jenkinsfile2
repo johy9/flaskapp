@@ -16,6 +16,7 @@ pipeline {
       steps {
         sh 'virtualenv benv'
         sh '. /var/lib/jenkins/workspace/Ansible-Project/benv/bin/activate && pip install flask'
+        sh 'chmod -R 755 benv'
       }
     }
     stage('Test') {
