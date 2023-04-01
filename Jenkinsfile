@@ -10,7 +10,7 @@ pipeline {
 
     stage('Checkout Ansible playbook') {
       steps {
-        git branch: 'main', url: 'https://github.com/myusername/myansibleplaybook.git'
+        git branch: 'main', url: 'https://github.com/johy9/flaskapp.git' 
       }
     }
 
